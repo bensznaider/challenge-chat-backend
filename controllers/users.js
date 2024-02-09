@@ -33,14 +33,14 @@ const getUsers = async (req, res) => {
 const login = async (req, res) => {
   try {
     const user = await Users.findOne({
-      where: { email: req.body.name },
+      where: { name: req.body.name },
     });
     if (!user) return res.sendStatus(401);
     const isValid = await user.validatePassword(req.body.password);
     if (!isValid) return res.sendStatus(401);
     const payload = {
       id: user.dataValues.id,
-      email: user.dataValues.email,
+      name: user.dataValues.name,
     };
     const token = generateToken(payload);
     const response = {userId: user.dataValues.id, token: token}
