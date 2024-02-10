@@ -16,13 +16,26 @@ const getChatsByUser = async (req, res) => {
 
 const addMessage = async (req, res) => {
   try {
+    let messages = [];
+    const allChatsByUser = await Chats.findAll({
+      where: { userId: req.body.userId },
+    });
+     allChatsByUser.map((chat) => {
+      let message = {};
+      chat.dataValues.isMessageFromUser
+        ? (message.role = "user")
+        : (message.role = "assistant");
+      message.content = chat.dataValues.message
+      messages.push(message)
+    });
+    messages.push({role:"user", content:req.body.message})
     await Chats.create({
-      isMessageFromUser: true,
+      isMessageFromUser: req.body.isMessageFromUser,
       message: req.body.message,
       userId: req.body.userId,
     });
     const completion = await openai.chat.completions.create({
-      messages: [{ role: "system", content: req.body.message }],
+      messages: messages,
       model: "gpt-3.5-turbo",
     });
     await Chats.create({
@@ -48,7 +61,9 @@ const deleteMessage = async (req, res) => {
       await messageToDelete.destroy();
       res.sendStatus(200);
     } else if (!messageToDelete) {
-      res.status(409).send("The message doesn't belong to the user chat or doesn't exist.");
+      res
+        .status(409)
+        .send("The message doesn't belong to the user chat or doesn't exist.");
     }
   } catch (error) {
     console.log(error);
