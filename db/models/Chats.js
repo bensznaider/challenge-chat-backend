@@ -1,17 +1,12 @@
-const Sequelize = require("sequelize")
-const db = require("../index.js")
+const Sequelize = require("sequelize");
+const db = require("../index.js");
 
 class Chats extends Sequelize.Model {}
 
 Chats.init(
   {
-    isMessageFromUser: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-    },
-    message: {
-      type: Sequelize.TEXT,
-      allowNull: false,
+    name: {
+      type: Sequelize.STRING,
     },
   },
   { sequelize: db, modelName: "chats" }
