@@ -4,11 +4,12 @@ const morgan = require("morgan");
 const db = require("./db/index.js")
 const routes = require("./routes/index.js")
 
+
 const app = express()
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.ORIGIN,
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
 }))
