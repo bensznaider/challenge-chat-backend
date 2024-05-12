@@ -2,11 +2,11 @@ const Sequelize = require("sequelize");
 require("dotenv").config();
 
 const db = new Sequelize(
-  "challenge_chat",
-  "challenge_chat_user",
+  "challenge_chat_database",
+  "challenge_chat_database_user",
   process.env.DB_PASSWORD,
   {
-    host: "dpg-cn2cr47109ks7395emug-a.oregon-postgres.render.com",
+    host: "dpg-cp031b821fec73ftil40-a.oregon-postgres.render.com",
     dialect: "postgres",
     dialectOptions: {
       ssl: {
