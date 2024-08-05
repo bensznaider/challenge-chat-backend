@@ -6,7 +6,7 @@ const db = new Sequelize(
   "challenge_chat_database_user",
   process.env.DB_PASSWORD,
   {
-    host: "dpg-cp031b821fec73ftil40-a.oregon-postgres.render.com",
+    host: process.env.DB_HOST,
     dialect: "postgres",
     dialectOptions: {
       ssl: {
