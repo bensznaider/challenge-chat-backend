@@ -2,8 +2,8 @@ const Sequelize = require("sequelize");
 require("dotenv").config();
 
 const db = new Sequelize(
-  "challenge_chat_database",
-  "challenge_chat_database_user",
+  "challenge_chat_database_5eqi",
+  "challenge_chat_database_5eqi_user",
   process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST,
